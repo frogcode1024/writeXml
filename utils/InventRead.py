@@ -42,12 +42,13 @@ class InventRead():
         abstract_pattern = r'<business:Abstract(.*?)>(.*?)</business:Abstract>'
         description_pattern = r'<business:Description(.*?)>(.*?)</business:Description>'
         claims_pattern = re.compile(r'<business:ClaimText>(.*?)</business:ClaimText>')
-        mainClass_pattern = r'<business:MainClass>(.*?)</business:MainClass>'
+        mainClass_pattern = r'<business:ClassificationIPCR(.*?)>(.*?)<base:Text>(.*?)</base:Text>(.*?)</business:ClassificationIPCR>'
         replace_pattern = re.compile(r'<.+?>')
+        class_replace_pattern = re.compile(r'\(.+?\)')
 
         title_node = re.search(title_pattern, content, re.M|re.S)
         if not title_node == None:
-            self.titlestr = replace_pattern.sub('', title_node.group(2)).strip().replace('\n', '').replace(' ', '')
+            self.titleStr = replace_pattern.sub('', title_node.group(2)).strip().replace('\n', '').replace(' ', '')
         else:
             logger.error('title parser error  Caused by:  ' + xml_path)
 
@@ -86,13 +87,13 @@ class InventRead():
 
         mainclass_node = re.search(mainClass_pattern, content, re.M | re.S)
         if not mainclass_node == None:
-            self.mainClass = replace_pattern.sub('', mainclass_node.group(1)).strip().replace(' ', '')
+            self.mainClass = class_replace_pattern.sub('', mainclass_node.group(3)).strip().replace(' ', '')
         else:
             logger.error('mainclass parser error  Caused by:  ' + xml_path)
 
 if __name__ == "__main__":
-    xml_path = r'C:\Users\user\Desktop\CN102017001003523CN00001077469490BFULZH20190521CN00V.XML'
+    xml_path = r'C:\Users\user\Desktop\发明\CN102017001132074CN00001079338270BFULZH20190521CN000\CN102017001132074CN00001079338270BFULZH20190521CN000.XML'
     example = InventRead()
     example.jiexi(xml_path)
-    print(example.titlestr, '\n******\n', example.abstractStr, '\n******\n', example.descriptionStr, '\n******\n',
+    print(example.titleStr, '\n******\n', example.abstractStr, '\n******\n', example.descriptionStr, '\n******\n',
           example.claimsStr, '\n******\n', example.mainClass)

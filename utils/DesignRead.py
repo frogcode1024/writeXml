@@ -43,7 +43,7 @@ class DesignRead():
 
         title_node = re.search(title_pattern, content, re.M | re.S)
         if not title_node == None:
-            self.titlestr = replace_pattern.sub('', title_node.group(2)).strip().replace('\n', '').replace(' ', '')
+            self.titleStr = replace_pattern.sub('', title_node.group(2)).strip().replace('\n', '').replace(' ', '')
         else:
             logger.error('title parser error  Caused by:  ' + xml_path)
 
@@ -73,7 +73,7 @@ class DesignRead():
 
 
 if __name__ == "__main__":
-    xml_path = r'D:\workspace\python-workspace\2\CN302018000520230CN00003051929950SDBPZH20190604CN00Z\CN302018000520230CN00003051929950SDBPZH20190604CN00Z.XML'
+    xml_path = r'C:\Users\user\Desktop\外观\CN302018000639974CN00003051969250SDBPZH20190604CN00R\CN302018000639974CN00003051969250SDBPZH20190604CN00R.XML'
     example = DesignRead()
     example.jiexi(xml_path)
-    print(example.titlestr, '\n******\n', example.abstractStr, '\n******\n', example.mainClass)
+    print(example.titleStr, '\n******\n', example.abstractStr, '\n******\n', example.mainClass)
