@@ -1,5 +1,4 @@
-# node not exist then returns None
-# Default income parameter  .zip file exists
+
 import logging
 import time
 import zipfile
